@@ -19,4 +19,4 @@ jobs:
       - name: Install goveralls
         run: go install github.com/mattn/goveralls@latest
       - name: Send coverage to Coveralls
-        run: goveralls -coverprofile=covprofile
+        run: goveralls -coverprofile=covprofile -service=github
