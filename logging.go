@@ -2,6 +2,7 @@ package snek
 
 import (
 	"io"
+	"time"
 
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
@@ -42,7 +43,7 @@ func setupLoggingFormat(format string, out io.Writer) error {
 	case logFormatFormatted:
 		log.Logger = log.Output(zerolog.ConsoleWriter{
 			Out:        out,
-			TimeFormat: "15:04:05.000",
+			TimeFormat: time.DateTime,
 		})
 	case logFormatJson:
 		log.Logger = log.Output(out)
