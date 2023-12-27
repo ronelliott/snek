@@ -11,6 +11,7 @@ const (
 	// logFormatFormatted is the formatted log format that prints log lines in a
 	// human-readable format.
 	logFormatFormatted = "formatted"
+
 	// logFormatJson is the JSON log format that prints log lines in a JSON format.
 	logFormatJson = "json"
 )

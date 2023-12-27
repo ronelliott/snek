@@ -7,8 +7,9 @@ import "github.com/spf13/cobra"
 type Initializer func(*cobra.Command) error
 
 // NewCommand creates a new cobra command with the specified initializers. Each
-// initializer is called with the command to initialize. If an error is returned
-// from an initializer, then the command is not created and the error is returned.
+// initializer is called in order with the command to initialize passed as an argument.
+// If an error is returned from an initializer, then the command is not created
+// and the error is returned.
 func NewCommand(initializers ...Initializer) (*cobra.Command, error) {
 	cmd := &cobra.Command{}
 	for _, initializer := range initializers {
