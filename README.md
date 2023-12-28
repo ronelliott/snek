@@ -99,6 +99,20 @@ Flags can be added to a generated command by calling the `WithFlags` function wi
 | WithStringVar | Add a `string` flag with only a long name. |
 | WithStringVarP | Add a `string` flag with a long and short name. |
 
+### Example
+
+```go
+greeting := "hello!"
+quantity := 1
+cmd, err := snek.NewCommand(
+	snek.WithFlag(
+		snek.WithStringVarP(&greeting, "greeting", "g", greeting, "The greeting to use"),
+		snek.WithStringVarP(&quantity, "quantity", "q", quantity, "The quantity of times to greet"),
+	),
+	// ...
+)
+```
+
 ## Complete Example
 
 ```go
