@@ -44,6 +44,19 @@ func WithExample(example string) Initializer {
 	}
 }
 
+// WithFlag adds the specified flags to the command.
+func WithFlag(flags ...FlagInitializer) Initializer {
+	return func(cmd *cobra.Command) error {
+		for _, flag := range flags {
+			if err := flag(cmd.Flags()); err != nil {
+				return err
+			}
+		}
+
+		return nil
+	}
+}
+
 // WithLong sets the long description on the command.
 func WithLong(long string) Initializer {
 	return func(cmd *cobra.Command) error {

@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/pflag"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
@@ -47,6 +48,26 @@ func TestWithExample(t *testing.T) {
 	cmd, err := snek.NewCommand(snek.WithExample("foo"))
 	require.NoError(t, err, "NewCommand should not return an error")
 	assert.Equal(t, "foo", cmd.Example, "Example should be set")
+}
+
+func TestWithFlag(t *testing.T) {
+	called := false
+	cmd, err := snek.NewCommand(snek.WithFlag(func(flags *pflag.FlagSet) error {
+		called = true
+		return nil
+	}))
+	require.NoError(t, err, "NewCommand should not return an error")
+	assert.NotNil(t, cmd, "NewCommand should return a command")
+	assert.True(t, called, "Flag initializer should be called")
+}
+
+func TestWithFlag_Error(t *testing.T) {
+	cmd, err := snek.NewCommand(snek.WithFlag(func(flags *pflag.FlagSet) error {
+		return assert.AnError
+	}))
+	assert.ErrorIs(t, err, assert.AnError,
+		"NewCommand should return the error produced by the flag initializer")
+	assert.Nil(t, cmd, "NewCommand should not return a command")
 }
 
 func TestWithLong(t *testing.T) {
