@@ -1,6 +1,6 @@
 # snek
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/ronelliott/snek.svg)](https://pkg.go.dev/github.com/ronelliott/snek) [![Go Report Card](https://goreportcard.com/badge/github.com/ronelliott/snek)](https://goreportcard.com/report/github.com/ronelliott/snek) [![Coverage Status](https://coveralls.io/repos/github/ronelliott/snek/badge.svg?branch=master)](https://coveralls.io/github/ronelliott/snek?branch=master)
+![Build Status](https://github.com/ronelliott/snek/actions/workflows/master.yml/badge.svg) [![Go Reference](https://pkg.go.dev/badge/github.com/ronelliott/snek.svg)](https://pkg.go.dev/github.com/ronelliott/snek) [![Go Report Card](https://goreportcard.com/badge/github.com/ronelliott/snek)](https://goreportcard.com/report/github.com/ronelliott/snek) [![Coverage Status](https://coveralls.io/repos/github/ronelliott/snek/badge.svg?branch=master)](https://coveralls.io/github/ronelliott/snek?branch=master)
 
 Snek is a lite wrapper around both [cobra](https://github.com/spf13/cobra) and [zerolog](https://github.com/rs/zerolog). It generates a configurable root command, adds some command line arguments and environment variables to configure both the log format and level and then initialized logging prior to executing the command. Another way to look at snek is as a builder pattern for cobra.
 
