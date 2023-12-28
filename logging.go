@@ -49,7 +49,7 @@ func setupLoggingFormat(format string, out io.Writer) error {
 		log.Logger = log.Output(out)
 	default:
 		log.Error().Str("format", format).Msg("Invalid log format")
-		return ErrorLogFormatInvalid
+		return ErrLogFormatInvalid
 	}
 	return nil
 }
@@ -63,7 +63,7 @@ func setupLoggingLevel(level string) error {
 	actual, err := zerolog.ParseLevel(level)
 	if err != nil {
 		log.Error().Err(err).Msg("Error parsing log level")
-		return ErrorLogLevelInvalid
+		return ErrLogLevelInvalid
 	}
 	zerolog.SetGlobalLevel(actual)
 	log.Debug().Msg("Debug logging enabled.")

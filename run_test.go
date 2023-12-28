@@ -18,14 +18,14 @@ import (
 func TestRun_Config_InvalidDefaultLogFormat(t *testing.T) {
 	cfg := snek.NewConfig(snek.WithDefaultLogFormat("invalid"))
 	err := snek.Run(nil, cfg)
-	assert.ErrorIs(t, err, snek.ErrorLogFormatInvalid,
+	assert.ErrorIs(t, err, snek.ErrLogFormatInvalid,
 		"Run should return an error if the default log format is invalid")
 }
 
 func TestRun_Config_InvalidDefaultLogLevel(t *testing.T) {
 	cfg := snek.NewConfig(snek.WithDefaultLogLevel("invalid"))
 	err := snek.Run(nil, cfg)
-	assert.ErrorIs(t, err, snek.ErrorLogLevelInvalid,
+	assert.ErrorIs(t, err, snek.ErrLogLevelInvalid,
 		"Run should return an error if the default log level is invalid")
 }
 
@@ -35,14 +35,14 @@ func TestRun_Config_InvalidLogFormatCommandLineVariableLongName(t *testing.T) {
 		snek.WithLogFormatCommandLineVariableShortName(""),
 	)
 	err := snek.Run(nil, cfg)
-	assert.ErrorIs(t, err, snek.ErrorLogFormatCommandLineVariableNameEmpty,
+	assert.ErrorIs(t, err, snek.ErrLogFormatCommandLineVariableNameEmpty,
 		"Run should return an error if the log format command line variable long and short name are empty")
 }
 
 func TestRun_Config_InvalidLogFormatEnvironmentVariableName(t *testing.T) {
 	cfg := snek.NewConfig(snek.WithLogFormatEnvironmentVariableName(""))
 	err := snek.Run(nil, cfg)
-	assert.ErrorIs(t, err, snek.ErrorLogFormatEnvironmentVariableNameEmpty,
+	assert.ErrorIs(t, err, snek.ErrLogFormatEnvironmentVariableNameEmpty,
 		"Run should return an error if the log format environment variable name is empty")
 }
 
@@ -52,21 +52,21 @@ func TestRun_Config_InvalidLogLevelCommandLineVariableLongName(t *testing.T) {
 		snek.WithLogLevelCommandLineVariableShortName(""),
 	)
 	err := snek.Run(nil, cfg)
-	assert.ErrorIs(t, err, snek.ErrorLogLevelCommandLineVariableNameEmpty,
+	assert.ErrorIs(t, err, snek.ErrLogLevelCommandLineVariableNameEmpty,
 		"Run should return an error if the log level command line variable long and short name are empty")
 }
 
 func TestRun_Config_InvalidLogLevelEnvironmentVariableName(t *testing.T) {
 	cfg := snek.NewConfig(snek.WithLogLevelEnvironmentVariableName(""))
 	err := snek.Run(nil, cfg)
-	assert.ErrorIs(t, err, snek.ErrorLogLevelEnvironmentVariableNameEmpty,
+	assert.ErrorIs(t, err, snek.ErrLogLevelEnvironmentVariableNameEmpty,
 		"Run should return an error if the log level environment variable name is empty")
 }
 
 func TestRun_Config_InvalidLogOutput(t *testing.T) {
 	cfg := snek.NewConfig(snek.WithLogOutput(nil))
 	err := snek.Run(nil, cfg)
-	assert.ErrorIs(t, err, snek.ErrorLogOutputEmpty,
+	assert.ErrorIs(t, err, snek.ErrLogOutputEmpty,
 		"Run should return an error if the log output is empty")
 }
 
@@ -243,7 +243,7 @@ func TestRun_Logging_Format_Invalid(t *testing.T) {
 			log.Debug().Msg("debug test")
 		}),
 	)
-	assert.ErrorIs(t, err, snek.ErrorLogFormatInvalid, "Run should return an error")
+	assert.ErrorIs(t, err, snek.ErrLogFormatInvalid, "Run should return an error")
 	assert.False(t, called, "Run should not call the commands Run function")
 }
 
@@ -330,7 +330,7 @@ func TestRun_Logging_Level_Invalid(t *testing.T) {
 			log.Debug().Msg("debug test")
 		}),
 	)
-	assert.ErrorIs(t, err, snek.ErrorLogLevelInvalid, "Run should return an error")
+	assert.ErrorIs(t, err, snek.ErrLogLevelInvalid, "Run should return an error")
 	assert.False(t, called, "Run should not call the commands Run function")
 }
 

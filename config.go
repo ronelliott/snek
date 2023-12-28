@@ -152,38 +152,38 @@ func (cfg *Config) validate() error {
 	case logFormatFormatted, logFormatJson:
 	default:
 		log.Error().Str("format", cfg.DefaultLogFormat).Msg("Default log format is invalid")
-		return ErrorLogFormatInvalid
+		return ErrLogFormatInvalid
 	}
 
 	_, err := zerolog.ParseLevel(cfg.DefaultLogLevel)
 	if err != nil {
 		log.Error().Str("level", cfg.DefaultLogLevel).Msg("Default log level is invalid")
-		return ErrorLogLevelInvalid
+		return ErrLogLevelInvalid
 	}
 
 	if len(cfg.LogFormatCommandLineVariableLongName) == 0 && len(cfg.LogFormatCommandLineVariableShortName) == 0 {
 		log.Error().Msg("Log format command line variable long name and short name are both empty")
-		return ErrorLogFormatCommandLineVariableNameEmpty
+		return ErrLogFormatCommandLineVariableNameEmpty
 	}
 
 	if len(cfg.LogFormatEnvironmentVariableName) == 0 {
 		log.Error().Msg("Log format environment variable name is empty")
-		return ErrorLogFormatEnvironmentVariableNameEmpty
+		return ErrLogFormatEnvironmentVariableNameEmpty
 	}
 
 	if len(cfg.LogLevelCommandLineVariableLongName) == 0 && len(cfg.LogLevelCommandLineVariableShortName) == 0 {
 		log.Error().Msg("Log level command line variable long name and short name are both empty")
-		return ErrorLogLevelCommandLineVariableNameEmpty
+		return ErrLogLevelCommandLineVariableNameEmpty
 	}
 
 	if len(cfg.LogLevelEnvironmentVariableName) == 0 {
 		log.Error().Msg("Log level environment variable name is empty")
-		return ErrorLogLevelEnvironmentVariableNameEmpty
+		return ErrLogLevelEnvironmentVariableNameEmpty
 	}
 
 	if cfg.LogOutput == nil {
 		log.Error().Msg("Log output is nil")
-		return ErrorLogOutputEmpty
+		return ErrLogOutputEmpty
 	}
 
 	return nil
