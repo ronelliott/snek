@@ -9,12 +9,12 @@ import (
 )
 
 const (
-	// logFormatFormatted is the formatted log format that prints log lines in a
+	// LogFormatFormatted is the formatted log format that prints log lines in a
 	// human-readable format.
-	logFormatFormatted = "formatted"
+	LogFormatFormatted = "formatted"
 
-	// logFormatJson is the JSON log format that prints log lines in a JSON format.
-	logFormatJson = "json"
+	// LogFormatJson is the JSON log format that prints log lines in a JSON format.
+	LogFormatJson = "json"
 )
 
 // setupLogging sets the logging level and format to the specified level and
@@ -40,12 +40,12 @@ func setupLogging(level, format string, out io.Writer) error {
 // format is invalid, then an ErrorLogFormatInvalid error is returned.
 func setupLoggingFormat(format string, out io.Writer) error {
 	switch format {
-	case logFormatFormatted:
+	case LogFormatFormatted:
 		log.Logger = log.Output(zerolog.ConsoleWriter{
 			Out:        out,
 			TimeFormat: time.DateTime,
 		})
-	case logFormatJson:
+	case LogFormatJson:
 		log.Logger = log.Output(out)
 	default:
 		log.Error().Str("format", format).Msg("Invalid log format")

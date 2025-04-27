@@ -149,7 +149,7 @@ func NewConfig(initializers ...Configurator) *Config {
 // - LogOutput is not nil
 func (cfg *Config) validate() error {
 	switch cfg.DefaultLogFormat {
-	case logFormatFormatted, logFormatJson:
+	case LogFormatFormatted, LogFormatJson:
 	default:
 		log.Error().Str("format", cfg.DefaultLogFormat).Msg("Default log format is invalid")
 		return ErrLogFormatInvalid
