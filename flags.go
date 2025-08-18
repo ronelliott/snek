@@ -107,6 +107,26 @@ func WithIntVarP(variable *int, name, shorthand string, value int, usage string)
 	}
 }
 
+// WithInt64Var adds an int64 flag to the command with the specified name,
+// value, and usage and uses the specified variable to store the value of the
+// flag.
+func WithInt64Var(variable *int64, name string, value int64, usage string) FlagInitializer {
+	return func(flags *pflag.FlagSet) error {
+		flags.Int64Var(variable, name, value, usage)
+		return nil
+	}
+}
+
+// WithInt64VarP adds an int64 flag to the command with the specified name,
+// shorthand, value, and usage and uses the specified variable to store the
+// value of the flag.
+func WithInt64VarP(variable *int64, name, shorthand string, value int64, usage string) FlagInitializer {
+	return func(flags *pflag.FlagSet) error {
+		flags.Int64VarP(variable, name, shorthand, value, usage)
+		return nil
+	}
+}
+
 // WithStringVar adds a string flag to the command with the specified name,
 // value, and usage and uses the specified variable to store the value of the
 // flag.
