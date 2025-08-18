@@ -208,6 +208,48 @@ func TestWithIntVarP(t *testing.T) {
 		})
 }
 
+func TestWithInt64Var(t *testing.T) {
+	runFlagTest(t,
+		func(variable *int64, value int64) snek.FlagInitializer {
+			return snek.WithInt64Var(variable, "test", value, "test int64")
+		},
+		map[string]flagTest[int64]{
+			"long flag with =": {
+				args:     []string{"--test=1"},
+				expected: 1,
+			},
+			"long flag with space": {
+				args:     []string{"--test", "2"},
+				expected: 2,
+			},
+		})
+}
+
+func TestWithInt64VarP(t *testing.T) {
+	runFlagTest(t,
+		func(variable *int64, value int64) snek.FlagInitializer {
+			return snek.WithInt64VarP(variable, "test", "t", value, "test int64")
+		},
+		map[string]flagTest[int64]{
+			"short flag with =": {
+				args:     []string{"-t=1"},
+				expected: 1,
+			},
+			"short flag with space": {
+				args:     []string{"-t", "2"},
+				expected: 2,
+			},
+			"long flag with =": {
+				args:     []string{"--test=1"},
+				expected: 1,
+			},
+			"long flag with space": {
+				args:     []string{"--test", "2"},
+				expected: 2,
+			},
+		})
+}
+
 func TestWithStringVar(t *testing.T) {
 	runFlagTest(t,
 		func(variable *string, value string) snek.FlagInitializer {
