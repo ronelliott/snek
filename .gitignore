@@ -1,0 +1,17 @@
+# Test coverage
+covprofile
+coverage.out
+*.coverprofile
+
+# Build artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary
+*.test
+
+# Output of the go coverage tool
+*.out

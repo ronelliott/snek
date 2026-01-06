@@ -94,8 +94,26 @@ Flags can be added to a generated command by calling the `WithFlags` function wi
 | WithFloat32VarP | Add a `float32` flag with a long and short name. |
 | WithFloat64Var | Add a `float64` flag with only a long name. |
 | WithFloat64VarP | Add a `float64` flag with a long and short name. |
-| WithIntVar | Add a `int` flag with only a long name. |
-| WithIntVarP | Add a `int` flag with a long and short name. |
+| WithIntVar | Add an `int` flag with only a long name. |
+| WithIntVarP | Add an `int` flag with a long and short name. |
+| WithInt8Var | Add an `int8` flag with only a long name. |
+| WithInt8VarP | Add an `int8` flag with a long and short name. |
+| WithInt16Var | Add an `int16` flag with only a long name. |
+| WithInt16VarP | Add an `int16` flag with a long and short name. |
+| WithInt32Var | Add an `int32` flag with only a long name. |
+| WithInt32VarP | Add an `int32` flag with a long and short name. |
+| WithInt64Var | Add an `int64` flag with only a long name. |
+| WithInt64VarP | Add an `int64` flag with a long and short name. |
+| WithUintVar | Add a `uint` flag with only a long name. |
+| WithUintVarP | Add a `uint` flag with a long and short name. |
+| WithUint8Var | Add a `uint8` flag with only a long name. |
+| WithUint8VarP | Add a `uint8` flag with a long and short name. |
+| WithUint16Var | Add a `uint16` flag with only a long name. |
+| WithUint16VarP | Add a `uint16` flag with a long and short name. |
+| WithUint32Var | Add a `uint32` flag with only a long name. |
+| WithUint32VarP | Add a `uint32` flag with a long and short name. |
+| WithUint64Var | Add a `uint64` flag with only a long name. |
+| WithUint64VarP | Add a `uint64` flag with a long and short name. |
 | WithStringVar | Add a `string` flag with only a long name. |
 | WithStringVarP | Add a `string` flag with a long and short name. |
 
