@@ -250,6 +250,342 @@ func TestWithInt64VarP(t *testing.T) {
 		})
 }
 
+func TestWithInt8Var(t *testing.T) {
+	runFlagTest(t,
+		func(variable *int8, value int8) snek.FlagInitializer {
+			return snek.WithInt8Var(variable, "test", value, "test int8")
+		},
+		map[string]flagTest[int8]{
+			"long flag with =": {
+				args:     []string{"--test=1"},
+				expected: 1,
+			},
+			"long flag with space": {
+				args:     []string{"--test", "2"},
+				expected: 2,
+			},
+		})
+}
+
+func TestWithInt8VarP(t *testing.T) {
+	runFlagTest(t,
+		func(variable *int8, value int8) snek.FlagInitializer {
+			return snek.WithInt8VarP(variable, "test", "t", value, "test int8")
+		},
+		map[string]flagTest[int8]{
+			"short flag with =": {
+				args:     []string{"-t=1"},
+				expected: 1,
+			},
+			"short flag with space": {
+				args:     []string{"-t", "2"},
+				expected: 2,
+			},
+			"long flag with =": {
+				args:     []string{"--test=1"},
+				expected: 1,
+			},
+			"long flag with space": {
+				args:     []string{"--test", "2"},
+				expected: 2,
+			},
+		})
+}
+
+func TestWithInt16Var(t *testing.T) {
+	runFlagTest(t,
+		func(variable *int16, value int16) snek.FlagInitializer {
+			return snek.WithInt16Var(variable, "test", value, "test int16")
+		},
+		map[string]flagTest[int16]{
+			"long flag with =": {
+				args:     []string{"--test=1"},
+				expected: 1,
+			},
+			"long flag with space": {
+				args:     []string{"--test", "2"},
+				expected: 2,
+			},
+		})
+}
+
+func TestWithInt16VarP(t *testing.T) {
+	runFlagTest(t,
+		func(variable *int16, value int16) snek.FlagInitializer {
+			return snek.WithInt16VarP(variable, "test", "t", value, "test int16")
+		},
+		map[string]flagTest[int16]{
+			"short flag with =": {
+				args:     []string{"-t=1"},
+				expected: 1,
+			},
+			"short flag with space": {
+				args:     []string{"-t", "2"},
+				expected: 2,
+			},
+			"long flag with =": {
+				args:     []string{"--test=1"},
+				expected: 1,
+			},
+			"long flag with space": {
+				args:     []string{"--test", "2"},
+				expected: 2,
+			},
+		})
+}
+
+func TestWithInt32Var(t *testing.T) {
+	runFlagTest(t,
+		func(variable *int32, value int32) snek.FlagInitializer {
+			return snek.WithInt32Var(variable, "test", value, "test int32")
+		},
+		map[string]flagTest[int32]{
+			"long flag with =": {
+				args:     []string{"--test=1"},
+				expected: 1,
+			},
+			"long flag with space": {
+				args:     []string{"--test", "2"},
+				expected: 2,
+			},
+		})
+}
+
+func TestWithInt32VarP(t *testing.T) {
+	runFlagTest(t,
+		func(variable *int32, value int32) snek.FlagInitializer {
+			return snek.WithInt32VarP(variable, "test", "t", value, "test int32")
+		},
+		map[string]flagTest[int32]{
+			"short flag with =": {
+				args:     []string{"-t=1"},
+				expected: 1,
+			},
+			"short flag with space": {
+				args:     []string{"-t", "2"},
+				expected: 2,
+			},
+			"long flag with =": {
+				args:     []string{"--test=1"},
+				expected: 1,
+			},
+			"long flag with space": {
+				args:     []string{"--test", "2"},
+				expected: 2,
+			},
+		})
+}
+
+func TestWithUintVar(t *testing.T) {
+	runFlagTest(t,
+		func(variable *uint, value uint) snek.FlagInitializer {
+			return snek.WithUintVar(variable, "test", value, "test uint")
+		},
+		map[string]flagTest[uint]{
+			"long flag with =": {
+				args:     []string{"--test=1"},
+				expected: 1,
+			},
+			"long flag with space": {
+				args:     []string{"--test", "2"},
+				expected: 2,
+			},
+		})
+}
+
+func TestWithUintVarP(t *testing.T) {
+	runFlagTest(t,
+		func(variable *uint, value uint) snek.FlagInitializer {
+			return snek.WithUintVarP(variable, "test", "t", value, "test uint")
+		},
+		map[string]flagTest[uint]{
+			"short flag with =": {
+				args:     []string{"-t=1"},
+				expected: 1,
+			},
+			"short flag with space": {
+				args:     []string{"-t", "2"},
+				expected: 2,
+			},
+			"long flag with =": {
+				args:     []string{"--test=1"},
+				expected: 1,
+			},
+			"long flag with space": {
+				args:     []string{"--test", "2"},
+				expected: 2,
+			},
+		})
+}
+
+func TestWithUint8Var(t *testing.T) {
+	runFlagTest(t,
+		func(variable *uint8, value uint8) snek.FlagInitializer {
+			return snek.WithUint8Var(variable, "test", value, "test uint8")
+		},
+		map[string]flagTest[uint8]{
+			"long flag with =": {
+				args:     []string{"--test=1"},
+				expected: 1,
+			},
+			"long flag with space": {
+				args:     []string{"--test", "2"},
+				expected: 2,
+			},
+		})
+}
+
+func TestWithUint8VarP(t *testing.T) {
+	runFlagTest(t,
+		func(variable *uint8, value uint8) snek.FlagInitializer {
+			return snek.WithUint8VarP(variable, "test", "t", value, "test uint8")
+		},
+		map[string]flagTest[uint8]{
+			"short flag with =": {
+				args:     []string{"-t=1"},
+				expected: 1,
+			},
+			"short flag with space": {
+				args:     []string{"-t", "2"},
+				expected: 2,
+			},
+			"long flag with =": {
+				args:     []string{"--test=1"},
+				expected: 1,
+			},
+			"long flag with space": {
+				args:     []string{"--test", "2"},
+				expected: 2,
+			},
+		})
+}
+
+func TestWithUint16Var(t *testing.T) {
+	runFlagTest(t,
+		func(variable *uint16, value uint16) snek.FlagInitializer {
+			return snek.WithUint16Var(variable, "test", value, "test uint16")
+		},
+		map[string]flagTest[uint16]{
+			"long flag with =": {
+				args:     []string{"--test=1"},
+				expected: 1,
+			},
+			"long flag with space": {
+				args:     []string{"--test", "2"},
+				expected: 2,
+			},
+		})
+}
+
+func TestWithUint16VarP(t *testing.T) {
+	runFlagTest(t,
+		func(variable *uint16, value uint16) snek.FlagInitializer {
+			return snek.WithUint16VarP(variable, "test", "t", value, "test uint16")
+		},
+		map[string]flagTest[uint16]{
+			"short flag with =": {
+				args:     []string{"-t=1"},
+				expected: 1,
+			},
+			"short flag with space": {
+				args:     []string{"-t", "2"},
+				expected: 2,
+			},
+			"long flag with =": {
+				args:     []string{"--test=1"},
+				expected: 1,
+			},
+			"long flag with space": {
+				args:     []string{"--test", "2"},
+				expected: 2,
+			},
+		})
+}
+
+func TestWithUint32Var(t *testing.T) {
+	runFlagTest(t,
+		func(variable *uint32, value uint32) snek.FlagInitializer {
+			return snek.WithUint32Var(variable, "test", value, "test uint32")
+		},
+		map[string]flagTest[uint32]{
+			"long flag with =": {
+				args:     []string{"--test=1"},
+				expected: 1,
+			},
+			"long flag with space": {
+				args:     []string{"--test", "2"},
+				expected: 2,
+			},
+		})
+}
+
+func TestWithUint32VarP(t *testing.T) {
+	runFlagTest(t,
+		func(variable *uint32, value uint32) snek.FlagInitializer {
+			return snek.WithUint32VarP(variable, "test", "t", value, "test uint32")
+		},
+		map[string]flagTest[uint32]{
+			"short flag with =": {
+				args:     []string{"-t=1"},
+				expected: 1,
+			},
+			"short flag with space": {
+				args:     []string{"-t", "2"},
+				expected: 2,
+			},
+			"long flag with =": {
+				args:     []string{"--test=1"},
+				expected: 1,
+			},
+			"long flag with space": {
+				args:     []string{"--test", "2"},
+				expected: 2,
+			},
+		})
+}
+
+func TestWithUint64Var(t *testing.T) {
+	runFlagTest(t,
+		func(variable *uint64, value uint64) snek.FlagInitializer {
+			return snek.WithUint64Var(variable, "test", value, "test uint64")
+		},
+		map[string]flagTest[uint64]{
+			"long flag with =": {
+				args:     []string{"--test=1"},
+				expected: 1,
+			},
+			"long flag with space": {
+				args:     []string{"--test", "2"},
+				expected: 2,
+			},
+		})
+}
+
+func TestWithUint64VarP(t *testing.T) {
+	runFlagTest(t,
+		func(variable *uint64, value uint64) snek.FlagInitializer {
+			return snek.WithUint64VarP(variable, "test", "t", value, "test uint64")
+		},
+		map[string]flagTest[uint64]{
+			"short flag with =": {
+				args:     []string{"-t=1"},
+				expected: 1,
+			},
+			"short flag with space": {
+				args:     []string{"-t", "2"},
+				expected: 2,
+			},
+			"long flag with =": {
+				args:     []string{"--test=1"},
+				expected: 1,
+			},
+			"long flag with space": {
+				args:     []string{"--test", "2"},
+				expected: 2,
+			},
+		})
+}
+
 func TestWithStringVar(t *testing.T) {
 	runFlagTest(t,
 		func(variable *string, value string) snek.FlagInitializer {
