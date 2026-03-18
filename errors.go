@@ -27,4 +27,8 @@ var (
 
 	// ErrLogOutputEmpty is returned when the log output is empty or nil.
 	ErrLogOutputEmpty = errors.New("log output is empty")
+
+	// ErrFlagEnvVarInvalid is returned when an environment variable value cannot
+	// be parsed into the type required by a flag.
+	ErrFlagEnvVarInvalid = errors.New("environment variable value is invalid for flag type")
 )

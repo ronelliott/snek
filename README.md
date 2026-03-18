@@ -1,6 +1,6 @@
 # snek
 
-![Build Status](https://github.com/ronelliott/snek/actions/workflows/master.yml/badge.svg)
+![Build Status](https://github.com/ronelliott/snek/actions/workflows/main.yml/badge.svg)
 [![Go Report Card](https://goreportcard.com/badge/github.com/ronelliott/snek)](https://goreportcard.com/report/github.com/ronelliott/snek)
 [![Coverage Status](https://coveralls.io/repos/github/ronelliott/snek/badge.svg?branch=master)](https://coveralls.io/github/ronelliott/snek?branch=master)
 [![Go Reference](https://pkg.go.dev/badge/github.com/ronelliott/snek.svg)](https://pkg.go.dev/github.com/ronelliott/snek)
@@ -117,6 +117,49 @@ Flags can be added to a generated command by calling the `WithFlags` function wi
 | WithStringVar | Add a `string` flag with only a long name. |
 | WithStringVarP | Add a `string` flag with a long and short name. |
 
+### Environment Variable Overrides
+
+Each flag type also has an `E` variant (`WithBoolVarE`, `WithStringVarPE`, etc.) that accepts an environment variable name. When the environment variable is set, its value is used as the flag's default. The priority order is:
+
+1. Explicit CLI flag (highest)
+2. Environment variable
+3. Hardcoded default value (lowest)
+
+If the environment variable is set but cannot be parsed into the flag's type, `NewCommand` returns an error wrapping `ErrFlagEnvVarInvalid`.
+
+| Name | Description |
+| - | - |
+| WithBoolVarE | Add a `bool` flag with only a long name and an environment variable override. |
+| WithBoolVarPE | Add a `bool` flag with a long and short name and an environment variable override. |
+| WithDurationVarE | Add a `time.Duration` flag with only a long name and an environment variable override. |
+| WithDurationVarPE | Add a `time.Duration` flag with a long and short name and an environment variable override. |
+| WithFloat32VarE | Add a `float32` flag with only a long name and an environment variable override. |
+| WithFloat32VarPE | Add a `float32` flag with a long and short name and an environment variable override. |
+| WithFloat64VarE | Add a `float64` flag with only a long name and an environment variable override. |
+| WithFloat64VarPE | Add a `float64` flag with a long and short name and an environment variable override. |
+| WithIntVarE | Add an `int` flag with only a long name and an environment variable override. |
+| WithIntVarPE | Add an `int` flag with a long and short name and an environment variable override. |
+| WithInt8VarE | Add an `int8` flag with only a long name and an environment variable override. |
+| WithInt8VarPE | Add an `int8` flag with a long and short name and an environment variable override. |
+| WithInt16VarE | Add an `int16` flag with only a long name and an environment variable override. |
+| WithInt16VarPE | Add an `int16` flag with a long and short name and an environment variable override. |
+| WithInt32VarE | Add an `int32` flag with only a long name and an environment variable override. |
+| WithInt32VarPE | Add an `int32` flag with a long and short name and an environment variable override. |
+| WithInt64VarE | Add an `int64` flag with only a long name and an environment variable override. |
+| WithInt64VarPE | Add an `int64` flag with a long and short name and an environment variable override. |
+| WithUintVarE | Add a `uint` flag with only a long name and an environment variable override. |
+| WithUintVarPE | Add a `uint` flag with a long and short name and an environment variable override. |
+| WithUint8VarE | Add a `uint8` flag with only a long name and an environment variable override. |
+| WithUint8VarPE | Add a `uint8` flag with a long and short name and an environment variable override. |
+| WithUint16VarE | Add a `uint16` flag with only a long name and an environment variable override. |
+| WithUint16VarPE | Add a `uint16` flag with a long and short name and an environment variable override. |
+| WithUint32VarE | Add a `uint32` flag with only a long name and an environment variable override. |
+| WithUint32VarPE | Add a `uint32` flag with a long and short name and an environment variable override. |
+| WithUint64VarE | Add a `uint64` flag with only a long name and an environment variable override. |
+| WithUint64VarPE | Add a `uint64` flag with a long and short name and an environment variable override. |
+| WithStringVarE | Add a `string` flag with only a long name and an environment variable override. |
+| WithStringVarPE | Add a `string` flag with a long and short name and an environment variable override. |
+
 ### Example
 
 ```go
@@ -126,6 +169,19 @@ cmd, err := snek.NewCommand(
 	snek.WithFlag(
 		snek.WithStringVarP(&greeting, "greeting", "g", greeting, "The greeting to use"),
 		snek.WithStringVarP(&quantity, "quantity", "q", quantity, "The quantity of times to greet"),
+	),
+	// ...
+)
+```
+
+### Example with Environment Variable Override
+
+```go
+port := ":3000"
+cmd, err := snek.NewCommand(
+	snek.WithFlag(
+		// MY_APP_PORT env var sets the default; --port flag overrides it
+		snek.WithStringVarPE(&port, "port", "p", "MY_APP_PORT", port, "The port to bind to"),
 	),
 	// ...
 )
