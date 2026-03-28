@@ -3,6 +3,7 @@ package snek_test
 import (
 	"bytes"
 	"encoding/json"
+	"io"
 	"os"
 	"strings"
 	"testing"
@@ -392,6 +393,68 @@ func runLogLinesJsonTest(t *testing.T, level string, expectedLines int, args []s
 		snek.WithDefaultLogFormat("json"),
 		snek.WithDefaultLogLevel(level),
 	), expectedLines, args)
+}
+
+func TestRun_Execute_RootWithSubCommands_NoArgs(t *testing.T) {
+	subCmd, err := snek.NewCommand(
+		snek.WithUse("sub"),
+		snek.WithRun(func(cmd *cobra.Command, args []string) {}),
+	)
+	require.NoError(t, err)
+
+	rootCalled := false
+	err = snek.Run([]string{}, snek.NewConfig(snek.WithLogOutput(io.Discard)),
+		snek.WithUse("root"),
+		snek.WithRun(func(cmd *cobra.Command, args []string) {
+			rootCalled = true
+		}),
+		snek.WithSubCommand(subCmd),
+	)
+	assert.NoError(t, err, "Run should not return an error when root has no args")
+	assert.True(t, rootCalled, "root Run should be called when no args are provided")
+}
+
+func TestRun_Execute_RootWithSubCommands_SubCommand(t *testing.T) {
+	subCalled := false
+	subCmd, err := snek.NewCommand(
+		snek.WithUse("sub"),
+		snek.WithRun(func(cmd *cobra.Command, args []string) {
+			subCalled = true
+		}),
+	)
+	require.NoError(t, err)
+
+	rootCalled := false
+	err = snek.Run([]string{"sub"}, snek.NewConfig(snek.WithLogOutput(io.Discard)),
+		snek.WithUse("root"),
+		snek.WithRun(func(cmd *cobra.Command, args []string) {
+			rootCalled = true
+		}),
+		snek.WithSubCommand(subCmd),
+	)
+	assert.NoError(t, err, "Run should not return an error when a valid subcommand is provided")
+	assert.True(t, subCalled, "subcommand Run should be called when its name is provided")
+	assert.False(t, rootCalled, "root Run should not be called when a subcommand is provided")
+}
+
+func TestRun_Execute_RootWithSubCommands_PositionalArgs(t *testing.T) {
+	subCmd, err := snek.NewCommand(
+		snek.WithUse("sub"),
+		snek.WithRun(func(cmd *cobra.Command, args []string) {}),
+	)
+	require.NoError(t, err)
+
+	var gotArgs []string
+	err = snek.Run([]string{"foo", "bar"}, snek.NewConfig(snek.WithLogOutput(io.Discard)),
+		snek.WithUse("root"),
+		snek.WithRun(func(cmd *cobra.Command, args []string) {
+			gotArgs = args
+		}),
+		snek.WithSubCommand(subCmd),
+	)
+	assert.NoError(t, err, "Run should not return an error when positional args are passed to root")
+	assert.Equal(t, []string{"foo", "bar"}, gotArgs,
+		"root Run should receive the positional args")
 }
 
 func testEnvironmentVariable(t *testing.T, name, value string) func() {

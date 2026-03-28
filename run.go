@@ -65,10 +65,8 @@ func RunExit(cfg *Config, initializers ...Initializer) {
 //	snek.WithDefaultLogLevel
 //	snek.WithLogOutput
 //
-// Logging is setup by using a cobra.OnInitialize function. This function will
-// setup logging using the configured log format and level. If an error occurs
-// while setting up logging, then the application will exit with a status code
-// of 1.
+// Logging is setup using a PersistentPreRunE hook on the root command. If an
+// error occurs while setting up logging, it is returned from Run.
 //
 // If the log level is set to `debug`, then a debug log line is written confirming
 // that debug logging is enabled.
@@ -96,6 +94,14 @@ func Run(args []string, cfg *Config, initializers ...Initializer) error {
 		return err
 	}
 
+	// When the root command is runnable (has Run/RunE) and also has subcommands,
+	// cobra's legacyArgs validation in Find() rejects any positional arguments
+	// with an "unknown command" error. Auto-apply ArbitraryArgs when no custom
+	// Args validator has been set so the root Run handler receives them normally.
+	if rootCmd.Args == nil && rootCmd.Runnable() && rootCmd.HasSubCommands() {
+		rootCmd.Args = cobra.ArbitraryArgs
+	}
+
 	// ---------------------------------------------------------------------------
 	// Logging
 	// ---------------------------------------------------------------------------
@@ -121,12 +127,26 @@ func Run(args []string, cfg *Config, initializers ...Initializer) error {
 		logLevel,
 		cfg.LogLevelCommandLineVariableHelp)
 
-	cobra.OnInitialize(func() {
+	// Use PersistentPreRunE instead of cobra.OnInitialize to scope logging setup
+	// to this command tree rather than the package-level global, which accumulates
+	// across multiple Run() calls (e.g. in tests). Chain any hooks the caller may
+	// have already set via initializers so neither is lost.
+	existingPreRunE := rootCmd.PersistentPreRunE
+	existingPreRun := rootCmd.PersistentPreRun
+	rootCmd.PersistentPreRunE = func(cmd *Command, args []string) error {
 		if err := setupLogging(logLevel, logFormat, cfg.LogOutput); err != nil {
-			log.Error().Err(err).Msg("Error setting up logging")
-			os.Exit(1)
+			return err
 		}
-	})
+		if existingPreRunE != nil {
+			if err := existingPreRunE(cmd, args); err != nil {
+				return err
+			}
+		}
+		if existingPreRun != nil {
+			existingPreRun(cmd, args)
+		}
+		return nil
+	}
 
 	// ---------------------------------------------------------------------------
 	// Execute
