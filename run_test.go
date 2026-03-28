@@ -3,6 +3,7 @@ package snek_test
 import (
 	"bytes"
 	"encoding/json"
+	"io"
 	"os"
 	"strings"
 	"testing"
@@ -402,7 +403,7 @@ func TestRun_Execute_RootWithSubCommands_NoArgs(t *testing.T) {
 	require.NoError(t, err)
 
 	rootCalled := false
-	err = snek.Run([]string{}, snek.NewConfig(),
+	err = snek.Run([]string{}, snek.NewConfig(snek.WithLogOutput(io.Discard)),
 		snek.WithUse("root"),
 		snek.WithRun(func(cmd *cobra.Command, args []string) {
 			rootCalled = true
@@ -424,7 +425,7 @@ func TestRun_Execute_RootWithSubCommands_SubCommand(t *testing.T) {
 	require.NoError(t, err)
 
 	rootCalled := false
-	err = snek.Run([]string{"sub"}, snek.NewConfig(),
+	err = snek.Run([]string{"sub"}, snek.NewConfig(snek.WithLogOutput(io.Discard)),
 		snek.WithUse("root"),
 		snek.WithRun(func(cmd *cobra.Command, args []string) {
 			rootCalled = true
@@ -444,7 +445,7 @@ func TestRun_Execute_RootWithSubCommands_PositionalArgs(t *testing.T) {
 	require.NoError(t, err)
 
 	var gotArgs []string
-	err = snek.Run([]string{"foo", "bar"}, snek.NewConfig(),
+	err = snek.Run([]string{"foo", "bar"}, snek.NewConfig(snek.WithLogOutput(io.Discard)),
 		snek.WithUse("root"),
 		snek.WithRun(func(cmd *cobra.Command, args []string) {
 			gotArgs = args

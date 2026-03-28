@@ -138,7 +138,9 @@ func Run(args []string, cfg *Config, initializers ...Initializer) error {
 			return err
 		}
 		if existingPreRunE != nil {
-			return existingPreRunE(cmd, args)
+			if err := existingPreRunE(cmd, args); err != nil {
+				return err
+			}
 		}
 		if existingPreRun != nil {
 			existingPreRun(cmd, args)
