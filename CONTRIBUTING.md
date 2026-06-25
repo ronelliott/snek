@@ -57,4 +57,4 @@ Keep subjects in the imperative mood, lowercase after the colon, and under
 
 By submitting a contribution you confirm that you own or have the rights to
 the code you are contributing. All contributions are provided under the
-[Apache-2.0](LICENSE.txt) license that covers this project.
+[MIT License](LICENSE.md) license that covers this project.
