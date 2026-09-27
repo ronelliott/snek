@@ -1,24 +1,32 @@
 name: Run Tests
 
 on:
+  pull_request:
   push:
     branches: [ main ]
+
+permissions:
+  contents: read
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v5
         with:
-          go-version: '^1.21'
+          go-version-file: go.mod
       - name: Run tests
         run: go test -v -race -covermode atomic -coverprofile=covprofile ./...
+      # Coverage upload needs COVERALLS_TOKEN, which isn't exposed to
+      # pull_request runs from Dependabot, so only report from main.
       - name: Install goveralls
+        if: github.event_name == 'push'
         run: go install github.com/mattn/goveralls@latest
       - name: Send coverage to Coveralls
+        if: github.event_name == 'push'
         env:
           COVERALLS_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
         run: goveralls -coverprofile=covprofile -service=github
